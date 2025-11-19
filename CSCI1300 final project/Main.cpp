@@ -23,7 +23,7 @@ int playTurn(){
         cout<<"you rolled a "<< roll <<"!"<<endl;
     }else{
         cout<< riddle.getAnswer()<< guess <<endl;
-        cout<< "That is unfortunately worng"<<endl;
+        cout<< "That is unfortunately wrong"<<endl;
         roll = -1;
         
     }
