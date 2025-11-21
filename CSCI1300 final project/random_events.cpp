@@ -101,6 +101,7 @@ inputFile.close();
 //create another player class.. 
 
 // pass the character through to the random event as it's called
+//pass by value and pass by reference -- 
 
 //have a void to set the random event -- done
 //have a void to get the user path, and then the path for the event
