@@ -23,6 +23,6 @@ class RandomEvents {
 
 };
 
-//include Character class so that we can include methods from there
+//include Character class so that we can include methods from there -- this is for the points 
 //Additional thing in character class with path type -- include get path type 
 //ifcharacter.name == -- pulls the index number based on the advisor chosen. checking for strings and returning ints
