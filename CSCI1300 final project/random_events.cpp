@@ -13,3 +13,8 @@ void RandomEvents:: setRandomIndex(){
 }
 
 void RandomEvents::
+
+//have a void to set the random event
+//have a void to get the user path, and then the path for the event
+//have a void to get the user advisor and then the advisor for the event
+//have a void to get the user points and then the points added or subtracted for the event. 
