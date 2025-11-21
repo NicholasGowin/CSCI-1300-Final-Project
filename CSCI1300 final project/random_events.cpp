@@ -3,11 +3,13 @@
 #include <cstdlib>
 
 
-RandomEvents:: RandomEvents(){
+RandomEvents:: RandomEvents(character){
   path = "";
   advisor = "";
   points = "";
   index = 0;
+  this.character = character
+  
 }
 
 void RandomEvents:: setRandomIndex(){
@@ -104,3 +106,4 @@ inputFile.close();
 //have a void to get the user points and then the points added or subtracted for the event. 
 //pink and purple are the random events squares
 //have a class to add and subtract the points -- use from the characters 
+//
