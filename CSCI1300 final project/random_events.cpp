@@ -11,7 +11,8 @@ RandomEvents:: RandomEvents(){
 }
 
 void RandomEvents:: setRandomIndex(){
-  int i = rand()// figure out how to set that random index
+  srand(time(0)); // makes sure that its a different random line each time. 
+  int i = (rand()%48) +1 // figure out how to set that random index
   index = i;
 }
 
