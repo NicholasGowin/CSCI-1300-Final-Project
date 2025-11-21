@@ -7,9 +7,8 @@ class Riddle{
     public:
         Riddle();
         string getAnswer();
-        void setAnswer(string fileName);
         string getQuestion();
-        void setQuestion(string fileName);
+        void setQA(string fileName);
         void setRandomIndex();
         bool checkAnswer(string userAnswer);
 
