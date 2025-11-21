@@ -70,7 +70,30 @@ void RandomEvents::setPoints(string fileName){
 inputFile.close();
 }
 
-//have a void to set the random event
+void RandomEvents::setEvent(string fileName){
+  ifstream inputFile(fileName);
+  string line;
+  int currentIndex = 0;
+  if(inputFile.is_open()){
+    while(getline(inputFile,line)){
+      if(currentIndex == index){
+        vector<string> words;
+        split(line,words,'|');
+        event = words[0];
+        path = words[1];
+        advisor = words[2];
+        points = words [3];
+        break;
+      }
+currentIndex++;
+    }
+  }
+inputFile.close();
+}
+
+
+
+//have a void to set the random event -- done
 //have a void to get the user path, and then the path for the event
 //have a void to get the user advisor and then the advisor for the event
 //have a void to get the user points and then the points added or subtracted for the event. 
