@@ -95,6 +95,8 @@ inputFile.close();
 }
 
 //if the player advisor is equal to the random advisor, no points will be deducted 
+// character vs player...
+//create another player class.. 
 
 //have a void to set the random event -- done
 //have a void to get the user path, and then the path for the event
