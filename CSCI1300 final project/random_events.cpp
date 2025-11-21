@@ -18,3 +18,4 @@ void RandomEvents::
 //have a void to get the user path, and then the path for the event
 //have a void to get the user advisor and then the advisor for the event
 //have a void to get the user points and then the points added or subtracted for the event. 
+//pink and purple are the random events squares
