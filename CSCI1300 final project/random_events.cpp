@@ -1,5 +1,7 @@
 #include "random_events.h"
 #include "UsefulFunctions.h"
+#include <cstdlib>
+
 
 RandomEvents:: RandomEvents(){
   path = "";
