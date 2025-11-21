@@ -36,6 +36,7 @@ class Board {
         // Recall we can use const for getter functions
         int getPlayerPosition(int player_index) const;
         char getTileColor(int player_index) const;
+        void setTileColorGreen(int player_index);
 };
 
 #endif
