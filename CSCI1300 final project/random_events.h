@@ -12,13 +12,16 @@ class RandomEvents {
     void setAdvisor(string fileName);
     double getPoints();
     void setPoints(string fileName);
+    string getEvent();
+    void setEvent(string fileName);
     void setRandomIndex();
     
 
   private:
-    string path;
-    string advisor;
-    string points;
+    int path;
+    int advisor;
+    double points;
+    string event;
     int index;
 
 };
