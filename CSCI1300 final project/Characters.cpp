@@ -11,17 +11,26 @@ Character:: Character(){
     incorrectStreak = 0;
     indexOfChosenCharacter=-1;
 }
-void Character:: setCharacterInfo(string fileName, int index){
+void Character:: setCharacterInfo(string fileName, int index, int playerNum){
     
     ifstream inputFile(fileName);
     string line;
     int currentIndex =0;
     //In the case of an index that is not a value in between 1 and 5 function asks for another value and calls itself
-    while(index < 0 || index > 4){
-        cout<<"Please enter a number between 1 and 5."<<endl;
-        cin >> index;
-        setCharacterInfo(fileName,index);
+    if(playerNum == 0){
+        while(index < 0 || index > 4){
+            cout<<"Please enter a number between 1 and 5."<<endl;
+            cin >> index;
+            setCharacterInfo(fileName,index, playerNum);
+        }   
+    }else{
+        while(index < 0 || index > 3){
+            cout<<"Please enter a number between 1 and 4."<<endl;
+            cin >> index;
+            setCharacterInfo(fileName,index, playerNum);
+        }
     }
+    
     if(inputFile.is_open()){
         while(getline(inputFile,line)){
             if(currentIndex == index){
@@ -33,7 +42,6 @@ void Character:: setCharacterInfo(string fileName, int index){
                 efficiency = stoi(words[3]);
                 insight = stoi(words[4]);
                 discoveryPoints = stoi(words[5]);
-                break;
             }
             currentIndex++;
         }
@@ -42,7 +50,6 @@ void Character:: setCharacterInfo(string fileName, int index){
     }
     inputFile.close();
     indexOfChosenCharacter = index+1;
-    cout<<indexOfChosenCharacter<<endl;
 }
 void Character:: addDiscoveryPoints(bool ans){
     if(ans){
@@ -86,9 +93,11 @@ void Character:: addInsight(int ins){
     }
 }
 
-void Character:: displayCharacters(string fileName){
+void Character:: displayAllCharacters(string fileName, int index){
+    indexOfChosenCharacter = index;
     cout<<"Enter number of desired charecter!"<<endl;
-    cout<< "    name:   experience,     accuracy,   efficiency,     insight,    discoveryPoints"<<endl;
+    cout<< "    name:       experience,  accuracy,    efficiency,       insight,     discoveryPoints"<<endl;
+    cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
     int i =1;
     ifstream inputFile(fileName);
     string line ="";
@@ -96,24 +105,45 @@ void Character:: displayCharacters(string fileName){
         while(getline(inputFile, line)){
             vector <string> words;
             split(line, words,'|');
-            cout<< i << ". "<<words[0]<< ":      "<< words[1]<< ",          "<< words[2]<< ",           "<< words[3]<< ",           "<< words[4]<< ",           "<< words[5]<<endl;
+            cout<< i << ". "<<words[0]<< "      "<< words[1]<< ",          "<< words[2]<< ",           "<< words[3]<< ",           "<< words[4]<< ",           "<< words[5]<<endl;
             i++;
         }
-        cout<< indexOfChosenCharacter<<endl;
+        
     }else{
         int currentIndex = 0;
         while(getline(inputFile, line)){
             if(currentIndex != indexOfChosenCharacter){
                 vector <string> words;
                 split(line, words,'|');
-                cout<< words[0]<< ":      "<< words[1]<< ",          "<< words[2]<< ",           "<< words[3]<< ",           "<< words[4]<< ",           "<< words[5]<<endl;
-                cout<<"test"<<endl;
+                cout<< i << ". "<<words[0]<< ":      "<< words[1]<< ",          "<< words[2]<< ",           "<< words[3]<< ",           "<< words[4]<< ",           "<< words[5]<<endl;
+                i++;
             }
             
             currentIndex++;   
         }
     }
 }
+
+void Character:: tallyUpPoints(bool ansCorrect, int roll, int luck){
+    setAnswerStreak(ansCorrect);
+    addAccuracy();
+    addEfficiency(roll);
+    addInsight(luck);
+
+
+    cout<< "    name:       experience,  accuracy,    efficiency,       insight,     discoveryPoints"<<endl;
+    cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
+    cout<<"   "<<name<< ":      "<< experience<< ",          "<< accuracy << ",           "<< efficiency << ",           "<< insight << ",           "<< discoveryPoints <<endl<<endl;
+
+}
+
+int Character:: getFinalPoints(){
+    discoveryPoints+= int((experience*(accuracy + efficiency + insight + discoveryPoints))/1.75);
+    return discoveryPoints;
+}
+
+
+
 
 string Character:: getName(){
     return name;
