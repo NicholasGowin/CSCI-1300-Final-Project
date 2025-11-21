@@ -180,5 +180,9 @@ bool Board::movePlayerBack(int player_index) {
     return false;
 }
 
+void Board:: setTileColorGreen(int player_index){
+    _tiles[player_index][getPlayerPosition(player_index)].color = 'G';
+}
+
 
 
