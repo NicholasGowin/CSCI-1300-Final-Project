@@ -12,26 +12,7 @@ void Riddle:: setRandomIndex(){
     index =i;
 }
 
-void Riddle:: setAnswer(string fileName){
-    ifstream inputFile(fileName);
-    string line;
-    int currentIndex =0;
-    if(inputFile.is_open()){
-        while(getline(inputFile,line)){
-            if(currentIndex == index){
-                vector<string> words;
-                split(line,words,'|');
-                answer = words[1];
-                break;
-            }
-            currentIndex++;
-        }
-    }
-
-    inputFile.close();
-}
-
-void Riddle:: setQuestion(string fileName){
+void Riddle:: setQA(string fileName){
     setRandomIndex();
     ifstream inputFile(fileName);
     string line;
