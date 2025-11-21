@@ -6,11 +6,11 @@ using namespace std;
 class RandomEvents {
   public: 
     RandomEvents();
-    string getPathType();
+    int getPathType();
     void setPathType(string fileName);
-    string getAdvisor();
+    int getAdvisor(); 
     void setAdvisor(string fileName);
-    string getPoints();
+    double getPoints();
     void setPoints(string fileName);
     void setRandomIndex();
     
@@ -23,3 +23,6 @@ class RandomEvents {
 
 };
 
+//include Character class so that we can include methods from there
+//Additional thing in character class with path type -- include get path type 
+//ifcharacter.name == -- pulls the index number based on the advisor chosen. checking for strings and returning ints
