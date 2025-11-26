@@ -7,7 +7,7 @@ RandomEvents:: RandomEvents(character){
   path = "";
   advisor = "";
   points = "";
-  index = 0;
+  index1 = 0;
   this.character = character
   
 }
@@ -15,7 +15,7 @@ RandomEvents:: RandomEvents(character){
 void RandomEvents:: setRandomIndex(){
   srand(time(0)); // makes sure that its a different random line each time. 
   int i = (rand()%48) +1 // figure out how to set that random index
-  index = i;
+  index1 = i;
 }
 
 void RandomEvents::setPathType(string fileName){
@@ -24,7 +24,7 @@ void RandomEvents::setPathType(string fileName){
   int currentIndex = 0;
   if(inputFile.is_open()){
       while(getline(inputFile,line)){
-        if(currentIndex == index){
+        if(currentIndex == index1){
           vector<string> words;
           split(line,words,'|');
           path = words[1];
@@ -42,7 +42,7 @@ void RandomEvents::setAdvisor(string fileName){
   int currentIndex = 0;
   if(inputFile.is_open()){
     while(getline(inputFile,line)){
-      if(currentIndex == index){
+      if(currentIndex == index1){
         vector<string> words;
         split(line,words,'|');
         path = words[1];
@@ -61,7 +61,7 @@ void RandomEvents::setPoints(string fileName){
   int currentIndex = 0;
   if(inputFile.is_open()){
     while(getline(inputFile,line)){
-      if(currentIndex == index){
+      if(currentIndex == index1){
         vector<string> words;
         split(line,words,'|');
         path = words[1];
@@ -81,7 +81,7 @@ void RandomEvents::setEvent(string fileName){
   int currentIndex = 0;
   if(inputFile.is_open()){
     while(getline(inputFile,line)){
-      if(currentIndex == index){
+      if(currentIndex == index1){
         vector<string> words;
         split(line,words,'|');
         event = words[0];
