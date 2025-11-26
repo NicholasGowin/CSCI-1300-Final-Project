@@ -1,6 +1,7 @@
 #include "random_events.h"
 #include "UsefulFunctions.h"
 #include <cstdlib>
+#include "Characters.h"
 
 
 RandomEvents:: RandomEvents(character){
@@ -94,6 +95,10 @@ currentIndex++;
     }
   }
 inputFile.close();
+}
+
+if (index == words[2]){
+  
 }
 
 //if the player advisor is equal to the random advisor, no points will be deducted 
