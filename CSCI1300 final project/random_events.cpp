@@ -88,7 +88,7 @@ void RandomEvents::setEvent(string fileName){
         event = words[0];
         path = words[1];
         advisor = words[2];
-        points = words [3];
+        points = words[3];
         break;
       }
 currentIndex++;
@@ -98,8 +98,11 @@ inputFile.close();
 }
 
 if (index == words[2]){
-  
-}
+  discoverypoints = discoverypoints;
+  else {
+    discoverypoints = discoverypoints + words[3];
+  };
+};
 
 //if the player advisor is equal to the random advisor, no points will be deducted 
 // character vs player...
