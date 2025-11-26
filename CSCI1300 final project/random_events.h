@@ -22,7 +22,7 @@ class RandomEvents {
     int advisor;
     double points;
     string event;
-    int index;
+    int index1;
 
 };
 
