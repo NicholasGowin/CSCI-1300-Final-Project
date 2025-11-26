@@ -98,9 +98,9 @@ inputFile.close();
 }
 
 if (index == words[2]){
-  discoverypoints = discoverypoints;
+  discoveryPoints = discoveryPoints;
   else {
-    discoverypoints = discoverypoints + words[3];
+    discoveryPoints = discoveryPoints + words[3];
   };
 };
 
