@@ -1,23 +1,28 @@
 #include "random_events.h"
 #include "UsefulFunctions.h"
 #include <cstdlib>
+#include <ctime>
 #include "Characters.h"
+#include <vector>
+#include <fstream>
+using namespace std;
 
 
-RandomEvents:: RandomEvents(character){
-  path = "";
+RandomEvents :: RandomEvents(){
+  path = "" ;
   advisor = "";
   points = "";
   index1 = 0;
-  this.character = character
+  event = "";
   
-}
+};
 
 void RandomEvents:: setRandomIndex(){
   srand(time(0)); // makes sure that its a different random line each time. 
-  int i = (rand()%48) +1 // figure out how to set that random index
+  int i = (rand()%48) +1; // figure out how to set that random index
   index1 = i;
-}
+  //cout << i << endl;
+};
 
 void RandomEvents::setPathType(string fileName){
   ifstream inputFile(fileName);
@@ -28,14 +33,14 @@ void RandomEvents::setPathType(string fileName){
         if(currentIndex == index1){
           vector<string> words;
           split(line,words,'|');
-          path = words[1];
+          path = words[1]; // need to figure out how to grab an int and then store a string
           break;
         }
         currentIndex++;
       }
   }
 inputFile.close();
-}
+} 
 
 void RandomEvents::setAdvisor(string fileName){
   ifstream inputFile(fileName);
@@ -54,7 +59,7 @@ void RandomEvents::setAdvisor(string fileName){
     }
   }
 inputFile.close();
-}
+} 
 
 void RandomEvents::setPoints(string fileName){
   ifstream inputFile(fileName);
@@ -74,7 +79,7 @@ void RandomEvents::setPoints(string fileName){
     }
   }
 inputFile.close();
-}
+} 
 
 void RandomEvents::setEvent(string fileName){
   ifstream inputFile(fileName);
@@ -90,19 +95,39 @@ void RandomEvents::setEvent(string fileName){
         advisor = words[2];
         points = words[3];
         break;
+        
       }
+
 currentIndex++;
     }
   }
 inputFile.close();
+} 
+
+/*string RandomEvents::getPathType(){
+    return path;
 }
 
-if (index == words[2]){
-  discoveryPoints = discoveryPoints;
-  else {
-    discoveryPoints = discoveryPoints + words[3];
-  };
-};
+string RandomEvents::getAdvisor(){
+    return advisor;
+}
+
+string RandomEvents::getPoints(){
+    return points;
+}
+
+string RandomEvents::getEvent(){
+    return event;
+}*/
+
+//add strings
+//if (index == words[2]){
+//  discoveryPoints = discoveryPoints;
+//  else {
+//    discoveryPoints = discoveryPoints + words[3];
+ // };
+//};
+
 
 //if the player advisor is equal to the random advisor, no points will be deducted 
 // character vs player...
