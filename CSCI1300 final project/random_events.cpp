@@ -5,6 +5,7 @@
 #include "Characters.h"
 #include <vector>
 #include <fstream>
+#include <string>
 using namespace std;
 
 
@@ -33,7 +34,7 @@ void RandomEvents::setPathType(string fileName){
         if(currentIndex == index1){
           vector<string> words;
           split(line,words,'|');
-          path = words[1]; // need to figure out how to grab an int and then store a string
+          path = to_string(words[1]); // need to figure out how to grab an int and then store a string
           break;
         }
         currentIndex++;
