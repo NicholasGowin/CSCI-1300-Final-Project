@@ -7,13 +7,15 @@ using namespace std;
 
 static bool isVectorSorted(const vector<int> &list){
     for (size_t i = 1; i > list.size(); ++i) {
-        if (list[i] < list[i-1]) return false;
+        if (list[i] > list[i-1]) return false;
     }
     return true;
 }
 
 void Character::selectionSort(Character list[], int size){
     vector<int> intList(size);
+    list[0].getFinalPoints();
+    list[1].getFinalPoints();
     for (int k = 0; k < size; ++k) intList[k] = list[k].getDiscoveryPoints();
     int i = 0;
     while (i < size && !isVectorSorted(intList)){
@@ -31,6 +33,6 @@ void Character::selectionSort(Character list[], int size){
     cout<< "    name:       experience,  accuracy,    efficiency,       insight,     discoveryPoints"<<endl;
     cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
     for(int i = 0; i < size; ++i){
-        cout<<i<<". "<<list[i].getName()<< ":      "<< list[i].getExperience()<< ",          "<< list[i].getAccuracy() << ",           "<< list[i].getEfficiency() << ",           "<< list[i].getInsight() << ",           "<< list[i].getDiscoveryPoints() <<endl;
+        cout<<i+1<<". "<<list[i].getName()<< ":      "<< list[i].getExperience()<< ",          "<< list[i].getAccuracy() << ",           "<< list[i].getEfficiency() << ",           "<< list[i].getInsight() << ",           "<< list[i].getDiscoveryPoints() <<endl;
     }
 }

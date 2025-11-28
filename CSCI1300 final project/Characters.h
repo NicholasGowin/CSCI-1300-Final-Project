@@ -14,7 +14,7 @@ using namespace std;
 class Character { 
    public:
    Character();
-   void setCharacterInfo(string fileName, int index, int playerNum);
+   int setCharacterInfo(string fileName, int index, int playerNum, int previousInt);
    //takes items from a file and sets the character's info accordingly
    void addDiscoveryPoints(bool questionCorrect);
    //determines whether to add discovery points based on if the question was answered correctly

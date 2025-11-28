@@ -20,7 +20,7 @@ int playTurn(){
     if(guess == riddle.getAnswer()){
         cout<< "That's Correct! Now you can roll!"<<endl;
         roll = rollDie();
-        cout<<"you rolled a "<< roll <<"!"<<endl;
+        cout<< "you rolled a "<< roll <<"!"<<endl;
 
     }else{
         cout<< riddle.getAnswer()<< guess <<endl;
@@ -59,27 +59,49 @@ int main(){
         cout<< "no worries, let's get started!"<<endl;
     }
     cout << "*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:."<<endl<< endl <<"To start decide who goes first by whos birthday is closest to today!" << endl<<endl<< "to start enter anything: ";
-    Board gameBoard;
+
     string start;
     if(cin>>start && start == "anything"){
         cout<< endl<< "clever! "<< endl;
-        
     }
+
+
     cout<< endl<< "Let the game begin!"<< endl<<endl;
 
     Character player1;
     player1.displayAllCharacters("characters.txt",-1);
     int choice1;
     cin>> choice1;
-    player1.setCharacterInfo("characters.txt", choice1-1,0);
+    int prevous = player1.setCharacterInfo("characters.txt", choice1-1,0, 100);
     cout<< endl<< "Player 2, choose your character by entering the corresponding number:"<< endl;
     Character player2;
     player2.displayAllCharacters("characters.txt", choice1-1);
     int choice2;
     cin>> choice2;
-    player2.setCharacterInfo("characters.txt",choice2-1,1);
+    cout<< "This is the value of prevous"<<prevous<<endl;
+    player2.setCharacterInfo("characters.txt",choice2-1,1,prevous);
     cout<< endl<< "Great choices! "<< endl<< endl;
+    
+    
+    int path1;
+    int path2;
+    cout<< endl<< "Next please select your desired path"<<endl
+    <<"Player 1, choose your desired path by entering the corresponding number:"<<endl
+    <<"1. Fellowship Training (Less events, meaning less opertunity for struggle, but also less opertunity for reward!)"<<endl
+    <<"2. Direct Lab Assignment (More chance for rewards, but more struggles along the way)"<<endl;
+    cin>>path1;
+
+    cout<< endl<< "Next please select your desired path"<<endl
+    <<"Player 2, choose your desired path by entering the corresponding number:"<<endl
+    <<"1. Fellowship Training (Less events, meaning less opertunity for struggle, but also less opertunity for reward!)"<<endl
+    <<"2. Direct Lab Assignment (More chance for rewards, but more struggles along the way)"<<endl;
+    cin>>path2;
+    Board gameBoard(path1 == path2);
+    // map player choices to lanes: 1 -> lane 0 (top), 2 -> lane 1 (bottom)
+    gameBoard.assignPlayerToLane(0, (path1==1) ? 0 : 1);
+    gameBoard.assignPlayerToLane(1, (path2==1) ? 0 : 1);
     gameBoard.displayBoard();
+    
 
 //start of all the gameplay
 
@@ -114,7 +136,7 @@ int main(){
             while(color == 'B'){ //color blue
                 gameBoard.setTileColorGreen(0);
                 string placeHolder;
-                cout<<"Landed on blue! You get another turn."<<endl;
+                cout<< "Landed on blue! You get another turn."<<endl;
                 roll = playTurn();
                 if(roll>-1){
                     player1.setAnswerStreak(true);
@@ -136,7 +158,7 @@ int main(){
                 gameBoard.setTileColorGreen(0);
                 luck = -1;
                 string placeHolder;
-                cout<<"Landed on red, move back 2 spaces"<<endl<<"type anything to continue"<<endl;
+                cout<< "Landed on red, move back 2 spaces"<<endl<<"type anything to continue"<<endl;
                 cin>> placeHolder;
                 placeHolder="";
                 gameBoard.movePlayerBack(0);
@@ -198,7 +220,7 @@ int main(){
             while(color == 'B'){ //color blue
                 gameBoard.setTileColorGreen(1);
                 string placeHolder;
-                cout<<"Landed on blue! You get another turn."<<endl;
+                cout<< "Landed on blue! You get another turn."<<endl;
                 roll = playTurn();
                 if(roll>-1){
                     player2.setAnswerStreak(true);
@@ -222,7 +244,7 @@ int main(){
                 gameBoard.setTileColorGreen(1);
                 luck = -1;
                 string placeHolder;
-                cout<<"Landed on red, move back 2 spaces"<<endl<<"type anything to continue"<<endl;
+                cout<< "Landed on red, move back 2 spaces"<<endl<<"type anything to continue"<<endl;
                 cin>> placeHolder;
                 placeHolder="";
                 gameBoard.movePlayerBack(1);
@@ -264,17 +286,22 @@ int main(){
     list[1] = player2;
     player1.getFinalPoints();
     player2.getFinalPoints();
+    cout<< player1.getDiscoveryPoints()<<endl;
+    cout<< player2.getDiscoveryPoints()<<endl;
     if(player1.getFinalPoints()>player2.getFinalPoints()){
+        cout<< "Player 1 wins!!"<<endl;
         player1.selectionSort(list,2);
         cout<< player1.getName()<< "- \"Thanks for the Win Player 1!\""<<endl;
     }else if(player2.getFinalPoints()>player1.getFinalPoints()){
+        cout<< "Player 2 wins!!"<<endl;
         player1.selectionSort(list,2);
         cout<< player1.getName()<< "- \"Thanks for the Win Player 2!\""<<endl;
     }else{
+        cout<< "It's a tie!"<<endl;
         player1.selectionSort(list,2);
         cout<< player1.getName()<< ", "<< player2.getName() << "- \"I'll get you next time!\""<<endl;
     }
-    cout<<"GAME OVER!";
+    cout<< "GAME OVER!";
     
     
 

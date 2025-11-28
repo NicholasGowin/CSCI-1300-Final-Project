@@ -23,7 +23,7 @@ using namespace std;
 
 // =========================== Constructor ===========================
 
-Board::Board() {
+Board::Board(bool same) {
     // Creates two players
     _player_count = _MAX_PLAYERS;
 
@@ -33,12 +33,14 @@ Board::Board() {
     }
 
     // Fill both lanes
-    initializeBoard();
+    initializeBoard(same);
+    // default lanes
+    for (int i = 0; i < _player_count; ++i) _player_lane[i] = i; 
 }
 
 // =========================== Private Member Functions ===========================
 
-void Board::initializeTiles(int player_index) {
+void Board::initializeTiles(int player_index, int pathNum) {
     Tile tile;
     int green_count = 0;
     // Recall 52 from header file
@@ -55,7 +57,10 @@ void Board::initializeTiles(int player_index) {
         } 
         // Hard-coded target of 30 green tiles
         // Probablisitic method to spread out the green tiles randomly
-        else if (green_count < 30 && (rand() % (total_tiles - i) < 30 - green_count)) {
+        else if (pathNum == 1 && green_count < 45 && (rand() % (total_tiles - i) < 45 - green_count)) {
+            tile.color = 'G';
+            green_count++;
+        }else if (pathNum == 2 && green_count < 25 && (rand() % (total_tiles - i) < 25 - green_count)) {
             tile.color = 'G';
             green_count++;
         }
@@ -88,16 +93,30 @@ void Board::initializeTiles(int player_index) {
 }
 
 bool Board::isPlayerOnTile(int player_index, int pos) {
-    if (_player_position[player_index] == pos) {
-        return true;
+    // Here player_index is interpreted as a physical lane index.
+    // Return true if any logical player occupies this lane at pos.
+    for (int i = 0; i < _player_count; ++i) {
+        if (_player_lane[i] == player_index && _player_position[i] == pos) return true;
     }
     return false;
 }
 
 void Board::displayTile(int player_index, int pos) {
     string color = "";
-    int player = isPlayerOnTile(player_index, pos);
-
+    // player_index here is the lane index (0 or 1)
+    // find which logical players (if any) occupy this lane/position
+    int occupantA = -1;
+    int occupantB = -1;
+    for (int i = 0; i < _player_count; ++i) {
+        if (_player_lane[i] == player_index && _player_position[i] == pos) {
+            if (occupantA == -1){
+                occupantA = i;
+            } 
+            else{
+                occupantB = i;
+            } 
+        }
+    }
     // Using the defined nicenames above
     switch(_tiles[player_index][pos].color) {
         case 'O': color = ORANGE; break;
@@ -110,37 +129,47 @@ void Board::displayTile(int player_index, int pos) {
         case 'U': color = PURPLE; break;
     }
 
-    // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
-    if (player == true) {
-        cout << color << "|" << (player_index + 1) << "|" << RESET;
-    }
-    else {
+    // Template for displaying a tile: <color start> |<player label>| <reset color>
+    if (occupantA != -1 && occupantB != -1) {
+        // both players on the same tile
+        cout << color << "|1&2|" << RESET;
+    } else if (occupantA != -1) {
+        cout << color << "|" << (occupantA + 1) << "|" << RESET;
+    } else {
         cout << color << "| |" << RESET;
     }
 }
 
 // =========================== Public Member Functions ===========================
 
-void Board::initializeBoard() {
-    for (int i = 0; i < 2; i++) {
-        // This ensures each lane (or each player) has a unique tile distribution
-        initializeTiles(i);
-    }
+void Board::initializeBoard(bool sameBoard) {
+
+        for (int i = 0; i < 2; i++) {
+            // This ensures each lane (or each player) has a unique tile distribution
+            initializeTiles(i, i+1);
+        }
+
 }
 
 void Board::displayTrack(int player_index) {
+    int lane = _player_lane[player_index];
     for (int i = 0; i < _BOARD_SIZE; i++) {
-        displayTile(player_index, i);
+        displayTile(lane, i);
     }
     cout << endl;
 }
 
 void Board::displayBoard() {
-    for (int i = 0; i < 2; i++) {
-        displayTrack(i);
-        if (i == 0) {
-            cout << endl; // Add an extra line between the two lanes
+    // display both physical lanes
+    for (int lane = 0; lane < 2; ++lane) {
+        // determine if any player is using this lane; if so show player markers
+        for (int p = 0; p < _player_count; ++p) {
+            // displayTrack uses lane mapping internally
         }
+        // temporarily display lane using displayTile with lane index
+        for (int i = 0; i < _BOARD_SIZE; i++) displayTile(lane, i);
+        cout << endl;
+        if (lane == 0) cout << endl;
     }
 }
 
@@ -164,8 +193,8 @@ int Board::getPlayerPosition(int player_index) const {
 }
 
 char Board:: getTileColor(int player_index) const{
-    cout<<"color: "<< _tiles[player_index][_player_position[player_index]].color<<endl;
-    return _tiles[player_index][_player_position[player_index]].color;
+    int lane = _player_lane[player_index];
+    return _tiles[lane][_player_position[player_index]].color;
 }
 
 bool Board::movePlayerBack(int player_index) {
@@ -181,7 +210,14 @@ bool Board::movePlayerBack(int player_index) {
 }
 
 void Board:: setTileColorGreen(int player_index){
-    _tiles[player_index][getPlayerPosition(player_index)].color = 'G';
+    int lane = _player_lane[player_index];
+    _tiles[lane][getPlayerPosition(player_index)].color = 'G';
+}
+
+void Board::assignPlayerToLane(int logicalPlayer, int laneIndex){
+    if(logicalPlayer >=0 && logicalPlayer < _player_count && laneIndex >=0 && laneIndex < 2){
+        _player_lane[logicalPlayer] = laneIndex;
+    }
 }
 
 
