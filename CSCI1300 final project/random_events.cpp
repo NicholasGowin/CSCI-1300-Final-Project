@@ -104,7 +104,7 @@ currentIndex++;
 inputFile.close();
 } 
 
-/*string RandomEvents::getPathType(){
+string RandomEvents::getPathType(){
     return path;
 }
 
@@ -118,15 +118,17 @@ string RandomEvents::getPoints(){
 
 string RandomEvents::getEvent(){
     return event;
-}*/
+}
 
 //add strings
-//if (index == words[2]){
-//  discoveryPoints = discoveryPoints;
-//  else {
-//    discoveryPoints = discoveryPoints + words[3];
- // };
-//};
+
+if (index == words[2]){
+  discoveryPoints = discoveryPoints;
+else {
+    discoveryPoints += discoveryPoints + stoi(words[3]); //stoi converts the string to an int
+  };
+}; 
+
 
 
 //if the player advisor is equal to the random advisor, no points will be deducted 
