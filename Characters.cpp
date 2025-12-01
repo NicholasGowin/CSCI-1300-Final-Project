@@ -75,6 +75,10 @@ void Character:: addDiscoveryPoints(bool ans){
     }
 }
 
+void Character:: addDiscoveryPoints(int num){
+    discoveryPoints += num;
+}
+
 void Character:: setAnswerStreak(bool ans){
     if(ans){
         correctStreak++;

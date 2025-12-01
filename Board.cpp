@@ -23,7 +23,7 @@ using namespace std;
 
 // =========================== Constructor ===========================
 
-Board::Board(bool same) {
+Board::Board() {
     // Creates two players
     _player_count = _MAX_PLAYERS;
 
@@ -33,9 +33,7 @@ Board::Board(bool same) {
     }
 
     // Fill both lanes
-    initializeBoard(same);
-    // default lanes
-    for (int i = 0; i < _player_count; ++i) _player_lane[i] = i; 
+    initializeBoard();
 }
 
 // =========================== Private Member Functions ===========================
@@ -142,7 +140,7 @@ void Board::displayTile(int player_index, int pos) {
 
 // =========================== Public Member Functions ===========================
 
-void Board::initializeBoard(bool sameBoard) {
+void Board::initializeBoard() {
 
         for (int i = 0; i < 2; i++) {
             // This ensures each lane (or each player) has a unique tile distribution
@@ -214,9 +212,9 @@ void Board:: setTileColorGreen(int player_index){
     _tiles[lane][getPlayerPosition(player_index)].color = 'G';
 }
 
-void Board::assignPlayerToLane(int logicalPlayer, int laneIndex){
-    if(logicalPlayer >=0 && logicalPlayer < _player_count && laneIndex >=0 && laneIndex < 2){
-        _player_lane[logicalPlayer] = laneIndex;
+void Board::assignPlayerToLane(int playerIndex, int laneIndex){
+    if(playerIndex >=0 && playerIndex < _player_count && laneIndex >=0 && laneIndex < 2){
+        _player_lane[playerIndex] = laneIndex;
     }
 }
 

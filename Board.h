@@ -27,9 +27,9 @@ class Board {
 
     public:
         // Default Constructor
-        Board(bool same);
+        Board();
 
-        void initializeBoard(bool sameBoard);
+        void initializeBoard();
     void assignPlayerToLane(int logicalPlayer, int laneIndex);
         void displayTrack(int player_index);
         void displayBoard();

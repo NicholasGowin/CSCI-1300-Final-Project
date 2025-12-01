@@ -9,7 +9,6 @@ class Riddle{
         string getAnswer();
         string getQuestion();
         void setQA(string fileName);
-        void setRandomIndex();
         bool checkAnswer(string userAnswer);
 
         
@@ -17,4 +16,6 @@ class Riddle{
         string answer;
         string question;
         int index;
+
+        void setRandomIndex();
 };

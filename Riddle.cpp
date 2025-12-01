@@ -13,20 +13,20 @@ void Riddle:: setRandomIndex(){
 }
 
 void Riddle:: setQA(string fileName){
-    setRandomIndex();
+    setRandomIndex(); //sets random value 
     ifstream inputFile(fileName);
     string line;
     int currentIndex =0;
     if(inputFile.is_open()){
         while(getline(inputFile,line)){
-            if(currentIndex == index){
+            if(currentIndex == index){ //finds the index of the random riddle
                 vector<string> words;
                 split(line,words,'|');
-                question = words[0];
-                answer = words[1];
+                question = words[0]; //sets the random question
+                answer = words[1]; //sets the random answer of the same question
                 break;
             }
-            currentIndex++;
+            currentIndex++; //tracks were value is at in the list of file lines
         }
     }
     inputFile.close();
@@ -43,7 +43,6 @@ bool Riddle:: checkAnswer(string userAnswer){
         return true;
     }
     return false;
-    
 }
 
 // split is implemented in UsefulFunctions.cpp

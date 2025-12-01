@@ -18,6 +18,8 @@ class Character {
    //takes items from a file and sets the character's info accordingly
    void addDiscoveryPoints(bool questionCorrect);
    //determines whether to add discovery points based on if the question was answered correctly
+   void addDiscoveryPoints(int num);
+   void removeDiscoveryPoints();
 
   
    void setAnswerStreak(bool questionCorrect);
