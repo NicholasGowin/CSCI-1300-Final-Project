@@ -14,6 +14,10 @@ class RandomEvents {
     void setPoints(string fileName);
     string getEvent();
     void setEvent(string fileName);
+    int addPoints();
+    void updateDiscoveryPoints(int num);
+    //int setDiscoveryPoints();
+    //void setPoints (string fileName);
     void setRandomIndex();
     
 
@@ -29,7 +33,3 @@ class RandomEvents {
 //include Character class so that we can include methods from there -- this is for the points 
 //Additional thing in character class with path type -- include get path type 
 //ifcharacter.name == -- pulls the index number based on the advisor chosen. checking for strings and returning ints 
-
-//include Character class so that we can include methods from there -- this is for the points 
-//Additional thing in character class with path type -- include get path type 
-//ifcharacter.name == -- pulls the index number based on the advisor chosen. checking for strings and returning ints
