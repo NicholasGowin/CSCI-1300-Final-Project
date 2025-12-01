@@ -5,7 +5,6 @@
 #include "Characters.h"
 #include <vector>
 #include <fstream>
-#include <string>
 using namespace std;
 
 
@@ -25,62 +24,6 @@ void RandomEvents:: setRandomIndex(){
   //cout << i << endl;
 };
 
-void RandomEvents::setPathType(string fileName){
-  ifstream inputFile(fileName);
-  string line;
-  int currentIndex = 0;
-  if(inputFile.is_open()){
-      while(getline(inputFile,line)){
-        if(currentIndex == index1){
-          vector<string> words;
-          split(line,words,'|');
-          path = to_string(words[1]); // need to figure out how to grab an int and then store a string
-          break;
-        }
-        currentIndex++;
-      }
-  }
-inputFile.close();
-} 
-
-void RandomEvents::setAdvisor(string fileName){
-  ifstream inputFile(fileName);
-  string line;
-  int currentIndex = 0;
-  if(inputFile.is_open()){
-    while(getline(inputFile,line)){
-      if(currentIndex == index1){
-        vector<string> words;
-        split(line,words,'|');
-        path = words[1];
-        advisor = words[2];
-        break;
-      }
-      currentIndex++;
-    }
-  }
-inputFile.close();
-} 
-
-void RandomEvents::setPoints(string fileName){
-  ifstream inputFile(fileName);
-  string line;
-  int currentIndex = 0;
-  if(inputFile.is_open()){
-    while(getline(inputFile,line)){
-      if(currentIndex == index1){
-        vector<string> words;
-        split(line,words,'|');
-        path = words[1];
-        advisor = words[2];
-        points = words[3];
-        break;
-      }
-      currentIndex++;
-    }
-  }
-inputFile.close();
-} 
 
 void RandomEvents::setEvent(string fileName){
   ifstream inputFile(fileName);
@@ -96,7 +39,6 @@ void RandomEvents::setEvent(string fileName){
         advisor = words[2];
         points = words[3];
         break;
-        
       }
 
 currentIndex++;
@@ -104,6 +46,11 @@ currentIndex++;
   }
 inputFile.close();
 } 
+
+void RandomEvents :: updateDiscoveryPoints(int num){
+    int num = stoi(words[3]);
+    discoveryPoints += num;
+}
 
 string RandomEvents::getPathType(){
     return path;
@@ -119,16 +66,40 @@ string RandomEvents::getPoints(){
 
 string RandomEvents::getEvent(){
     return event;
+    
 }
 
-//add strings
 
-if (index == words[2]){
+
+/*int function(randome_event Object, event eventTrigger):
+    if(negEvent):
+        Object.addPoint(400)
+    else:
+
+main():
+Object
+event
+function(Object,event)*/
+
+//whatever i want to modfiy i need to add to the parameter parenthesis. 
+//
+
+/*int RandomEvents::addPoints (){
+if (index1 == stoi(words[2])){ //checks the 
   discoveryPoints = discoveryPoints;
+}
 else {
     discoveryPoints += discoveryPoints + stoi(words[3]); //stoi converts the string to an int
   };
-}; 
+}; */
+
+// int num = stoi(words[3]);
+// discoveryPoints += num;
+
+
+//add strings
+//how to fix this...
+//initalize an object -- modifying that object 
 
 
 
@@ -145,4 +116,10 @@ else {
 //have a void to get the user points and then the points added or subtracted for the event. 
 //pink and purple are the random events squares
 //have a class to add and subtract the points -- use from the characters 
-//
+//9.9 
+//uml diagram
+
+//#endif
+
+
+
