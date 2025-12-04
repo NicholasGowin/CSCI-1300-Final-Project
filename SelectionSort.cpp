@@ -33,7 +33,7 @@ void Character::selectionSort(Character list[],int size){
         list[mindex]=placeHolder;
         i++;
     }
-    cout<< "    name:       exdiscoveryPoints"<<endl;
+    cout<< "    name:       discoveryPoints"<<endl;
     cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
     
     for(int i = 0;i<size;i++){

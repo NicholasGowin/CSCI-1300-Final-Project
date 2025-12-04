@@ -298,12 +298,18 @@ int main(){
         player1.selectionSort(list,2);
         cout<< player1.getName()<< ", "<< player2.getName() << "- \"I'll get you next time!\""<<endl;
     }
-    cout<< "GAME OVER!";
+    cout<< "GAME OVER!"<<endl;
     player1.addPlayerToFile();
     player2.addPlayerToFile();
-    
-    
 
+    cout<< "Would you like to see the leaderboard of past games? (yes/no)"<<endl;
+    string response;
+    cin >> response;
+    if(response == "yes"){
+        player1.getPastGames();
+    }else{
+        cout<< "Thank you for playing!"<<endl;
+    }
 
     return 0;
 }

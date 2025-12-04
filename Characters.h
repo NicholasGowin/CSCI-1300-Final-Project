@@ -15,6 +15,7 @@ class Character {
    public:
    Character();
    void setPlayerName();
+   void setPlayerName(string name);
    int setCharacterInfo(string fileName, int index, int playerNum, int previousInt); // takes items from a file and sets the character's info accordingly
    void addDiscoveryPoints(bool questionCorrect); // determines whether to add discovery points based on if the question was answered correctly
    void addDiscoveryPoints(int playerNum, int num);// takes integer value and adds or subtracts it from character
@@ -23,10 +24,12 @@ class Character {
    void setAdvisor(string fileName);
    void setAnswerStreak(bool questionCorrect); // determines how many questions are correct
    void setPath(int path);
+   void setDiscoveryPoints(int points);
    
    void displayAllCharacters(string fileName,int index);
    void tallyUpPoints(bool ansCorrect, int roll, int luck);
    void addPlayerToFile();
+   
 
    // all accessor functions
    string getPlayerName();
@@ -39,6 +42,7 @@ class Character {
    int getDiscoveryPoints();
    int getFinalPoints();
    int getPath();
+   void getPastGames();
 
    void selectionSort(Character list[],int size);
    

@@ -238,7 +238,6 @@ void Character:: addPlayerToFile(){
         if(playerName.size() == 0) playerName = "Unknown";
         outputLine += playerName + "|" + to_string(discoveryPoints) + "|";
         outputFile << outputLine << endl;
-        cout<< outputLine << endl;
     } else {
         cerr << "Error: could not open past_games.txt for appending\n";
     }
@@ -246,7 +245,24 @@ void Character:: addPlayerToFile(){
 
 }
 
+void Character:: getPastGames(){
+    ifstream inputFile("past_games.txt");
+    string line;
+    vector<Character> pastGames;
+    int count = 0;
+    while(getline(inputFile,line)){
+        
+        vector<string> words;
+        split(line,words,'|');
+        Character pastGame;
+        pastGame.setPlayerName(words[0]);
+        pastGame.setDiscoveryPoints(stoi(words[1]));
+        pastGames.push_back(pastGame);
+        count++;
+    }
+    selectionSort(pastGames.data(), count);
 
+}
 int Character:: getFinalPoints(){
     discoveryPoints+= int((experience*(accuracy + efficiency + insight + discoveryPoints))/1.75);
     return discoveryPoints;
@@ -269,4 +285,10 @@ int Character:: getEfficiency(){
 }
 int Character:: getInsight(){
     return insight;
+}
+void Character:: setPlayerName(string name){
+    playerName = name;
+}
+void Character:: setDiscoveryPoints(int points){
+    discoveryPoints = points;
 }

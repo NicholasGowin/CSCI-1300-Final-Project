@@ -57,7 +57,7 @@ int playTurn(){
     //cout << riddle.getAnswer()<<endl; //remove this!
     cout<< riddle.getQuestion()<<endl;
     cin>>guess;
-    if(guess == "a"){
+    if(guess == riddle.getAnswer()){
         cout<< "That's Correct! Now you can roll!"<<endl;
         roll = rollDie();
         cout<< "you rolled a "<< roll <<"!"<<endl;
