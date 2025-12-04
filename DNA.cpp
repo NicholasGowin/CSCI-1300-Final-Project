@@ -66,7 +66,7 @@ int DNA :: bestStrandMatch(){
             bestMatchIndex = maxIndex;
         }    
         }
-        cout << bestMatchIndex << endl;
+        cout << "The strand best matches at index: " << bestMatchIndex << endl;
         return 0;
     }
         
@@ -102,7 +102,7 @@ void DNA :: identifyMutations(){
             charLong = longerStrand[i];
             charShort = shorterStrand[i - bestMatchIndex];
             if((i-bestMatchIndex) < 0 || (i - bestMatchIndex) >= shorterStrand.length()){ // i-bestMatch Index < 0 --> represents before the shorter strand starts; i-bestMatchIndex >= shorterStrand.length() --> represents after the shorter strand ends.
-                cout  << "Deletion mutation at index: " << i << ": " << charShort << " is deleted. " << endl;  
+                cout  << "Deletion mutation at index: " << i << endl;  
             }
             else if (charLong != charShort) { // next else if checks for substitutions, and if not goes to insertions. 
 
