@@ -1,6 +1,8 @@
 #include "Characters.h"
 #include "UsefulFunctions.h"
-#include <unordered_set>
+#include <iostream>
+using namespace std;
+
 Character:: Character(){
     name = "";
     experience = 0;
@@ -11,7 +13,13 @@ Character:: Character(){
     correctStreak = 0;
     incorrectStreak = 0;
     indexOfChosenCharacter=-1;
+    advisor = 0;
 }
+void Character:: setPlayerName(){
+    cout<< "Enter your Name!"<<endl;
+    cin >> playerName;
+}
+
 int Character:: setCharacterInfo(string fileName, int index, int playerNum, int previousIndex){
     
     ifstream inputFile(fileName);
@@ -67,6 +75,63 @@ int Character:: setCharacterInfo(string fileName, int index, int playerNum, int 
     inputFile.close();
     return index;
 }
+
+
+void Character:: setAdvisor(string fileName){
+    int currentIndex =0;
+    cout<<"Enter number of desired advisor!"<<endl;
+    cout<< "  name:           skill:"<<endl;
+    cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
+    int i =1;
+    ifstream inputFile(fileName);
+    string line ="";
+        while(getline(inputFile, line)){
+            cout<<i<< ". " <<line<<endl;
+            i++;
+        }
+    int index;
+
+    
+    //In the case of an index that is not a value in between 1 and 5 function asks for another value and calls itself
+    currentIndex = 0;
+    cin >> index;
+    while(index < 1 || index > 5){
+        cout<<"Please enter a number between 1 and 5."<<endl;
+        cin >>index;
+        
+    }   
+    if(inputFile.is_open()){
+        while(getline(inputFile,line)){
+            if(currentIndex == index){
+               advisor = index;
+            }
+                currentIndex++;
+            
+                
+        }
+    }else{
+        cout<<"file is not open"<<endl;
+    }
+    inputFile.close();
+    
+}
+
+void Character:: setPath(int p){
+    path = p;
+}
+
+int Character:: getPath(){
+    return path;
+}
+
+string Character:: getPlayerName(){
+    return playerName;
+}
+
+int Character:: getAdvisor(){
+    return advisor;
+}
+
 void Character:: addDiscoveryPoints(bool ans){
     if(ans){
         discoveryPoints+=50;
@@ -75,8 +140,15 @@ void Character:: addDiscoveryPoints(bool ans){
     }
 }
 
-void Character:: addDiscoveryPoints(int num){
+void Character:: addDiscoveryPoints(int playerNum, int num){
     discoveryPoints += num;
+    if(num > 0){
+        cout<<"Player "<<playerNum<<" earned "<< num << " discovery points!"<<endl;
+    }else if(num < 0 ){
+        cout<< "Player "<<playerNum<<" lost "<< abs(num) << " discovery points"<<endl;
+    }else{
+        cout<< "Player " << playerNum << " wasn't effected"<<endl;
+    }
 }
 
 void Character:: setAnswerStreak(bool ans){
@@ -119,29 +191,23 @@ void Character:: displayAllCharacters(string fileName, int index){
     cout<< "    name:       experience,  accuracy,    efficiency,       insight,     discoveryPoints"<<endl;
     cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
     int i =1;
-    unordered_set<string> seen;
     ifstream inputFile(fileName);
     string line ="";
     if(indexOfChosenCharacter==-1){
         while(getline(inputFile, line)){
             vector <string> words;
             split(line, words,'|');
-            if (words.size() < 1) continue;
-            if (seen.count(words[0])) continue; // skip duplicate name
-            seen.insert(words[0]);
             cout<< i << ". "<<words[0]<< "      "<< words[1]<< ",          "<< words[2]<< ",           "<< words[3]<< ",           "<< words[4]<< ",           "<< words[5]<<endl;
             i++;
         }
         
     }else{
         int currentIndex = 0;
+        
         while(getline(inputFile, line)){
             if(currentIndex != indexOfChosenCharacter){
                 vector <string> words;
                 split(line, words,'|');
-                if (words.size() < 1) { currentIndex++; continue; }
-                if (seen.count(words[0])) { currentIndex++; continue; }
-                seen.insert(words[0]);
                 cout<< i << ". "<<words[0]<< "       "<< words[1]<< ",          "<< words[2]<< ",           "<< words[3]<< ",           "<< words[4]<< ",           "<< words[5]<<endl;
                 i++;
             }
@@ -164,6 +230,23 @@ void Character:: tallyUpPoints(bool ansCorrect, int roll, int luck){
 
 }
 
+void Character:: addPlayerToFile(){
+    string outputLine = "";
+    // open for append using ofstream to ensure write-only append mode
+    ofstream outputFile("past_games.txt", ios::app);
+    if(outputFile.is_open()){
+        if(playerName.size() == 0) playerName = "Unknown";
+        outputLine += playerName + "|" + to_string(discoveryPoints) + "|";
+        outputFile << outputLine << endl;
+        cout<< outputLine << endl;
+    } else {
+        cerr << "Error: could not open past_games.txt for appending\n";
+    }
+    outputFile.close();
+
+}
+
+
 int Character:: getFinalPoints(){
     discoveryPoints+= int((experience*(accuracy + efficiency + insight + discoveryPoints))/1.75);
     return discoveryPoints;
@@ -171,9 +254,6 @@ int Character:: getFinalPoints(){
 int Character:: getDiscoveryPoints(){
     return discoveryPoints;
 }
-
-
-
 
 string Character:: getName(){
     return name;

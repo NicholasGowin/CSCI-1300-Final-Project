@@ -1,3 +1,7 @@
+Description | PathType (0 = Training Fellowship; 1 = Direct Lab Assignment) | Advisor (0 = none; 1 = Dr. Aliquot; 2 = Dr. Assembler; 3 = Dr. Pop-Gen; 4 = Dr. Bio-Script; 5 = Dr. Loci) | DiscoveryPoints (Lose or Gain)
+
+//Example of Negative Events with Advisor Protection:
+
 A critical DNA sample is contaminated|1|1|-500
 The main DNA sequencer machine breaks down|0|2|-200
 Your bioinformatics script has a bug|1|4|-400
@@ -46,6 +50,3 @@ You noticed a pattern in the junk DNA|0|0|800
 Your analysis confirms that presence of a new gene variant|1|0|500
 The machine you need is available when you need it|0|0|600
 Your lab received new equipment|1|0|700
-
-Description | PathType (0 = Training Fellowship; 1 = Direct Lab Assignment) | Advisor (0 = none; 1 = Dr. Aliquot; 2 = Dr. Assembler; 3 = Dr. Pop-Gen; 4 = Dr. Bio-Script; 5 = Dr. Loci) | DiscoveryPoints (Lose or Gain)
- 

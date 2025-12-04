@@ -14,38 +14,44 @@ using namespace std;
 class Character { 
    public:
    Character();
-   int setCharacterInfo(string fileName, int index, int playerNum, int previousInt);
-   //takes items from a file and sets the character's info accordingly
-   void addDiscoveryPoints(bool questionCorrect);
-   //determines whether to add discovery points based on if the question was answered correctly
-   void addDiscoveryPoints(int num);
+   void setPlayerName();
+   int setCharacterInfo(string fileName, int index, int playerNum, int previousInt); // takes items from a file and sets the character's info accordingly
+   void addDiscoveryPoints(bool questionCorrect); // determines whether to add discovery points based on if the question was answered correctly
+   void addDiscoveryPoints(int playerNum, int num);// takes integer value and adds or subtracts it from character
    void removeDiscoveryPoints();
 
-  
-   void setAnswerStreak(bool questionCorrect);
-   //determines how many questions are correct
+   void setAdvisor(string fileName);
+   void setAnswerStreak(bool questionCorrect); // determines how many questions are correct
+   void setPath(int path);
    
-    void displayAllCharacters(string fileName,int index);
-    void tallyUpPoints(bool ansCorrect, int roll, int luck);
-    
+   void displayAllCharacters(string fileName,int index);
+   void tallyUpPoints(bool ansCorrect, int roll, int luck);
+   void addPlayerToFile();
 
+   // all accessor functions
+   string getPlayerName();
    string getName();
+   int getAdvisor();
    int getExperience();
    int getAccuracy();
    int getEfficiency();
    int getInsight();
    int getDiscoveryPoints();
    int getFinalPoints();
+   int getPath();
 
    void selectionSort(Character list[],int size);
    
    private:
     string name;
+    string playerName;
+    int advisor;
     int experience;
     int accuracy;
     int efficiency;
     int insight;
     int discoveryPoints;
+    int path;
 
     int correctStreak;
     int incorrectStreak;
@@ -60,7 +66,7 @@ class Character {
     //if the player lands on certain tiles, their insight increases
     //if the player lands on certain tiles, their insight decreases
 
-    bool isSorted(double list[],int size);
+    
 };
 
 #endif

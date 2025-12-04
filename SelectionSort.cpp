@@ -5,34 +5,38 @@
 
 using namespace std;
 
-static bool isVectorSorted(const vector<int> &list){
-    for (size_t i = 1; i > list.size(); ++i) {
-        if (list[i] > list[i-1]) return false;
+bool isSorted(Character list[],int size){
+    for(int i=1; i<size;i++){
+        if(list[i].getDiscoveryPoints()>list[i-1].getDiscoveryPoints()){
+            return false;
+        }
     }
     return true;
 }
 
-void Character::selectionSort(Character list[], int size){
-    vector<int> intList(size);
-    list[0].getFinalPoints();
-    list[1].getFinalPoints();
-    for (int k = 0; k < size; ++k) intList[k] = list[k].getDiscoveryPoints();
-    int i = 0;
-    while (i < size && !isVectorSorted(intList)){
-        int mindex = i;
-        for (int j = i; j < size; ++j){
-            if (intList[mindex] < intList[j]) mindex = j;
-        }
-        if (mindex != i){
-            swap(list[i], list[mindex]);
-            swap(intList[i], intList[mindex]);
-        }
-        ++i;
-    }
 
-    cout<< "    name:       experience,  accuracy,    efficiency,       insight,     discoveryPoints"<<endl;
+
+void Character::selectionSort(Character list[],int size){
+    
+    
+    Character placeHolder;
+    int i=0;
+    while(!isSorted(list,size)){
+        int mindex= i;
+        for(int j =i;j<size;j++){
+            if(list[mindex].getDiscoveryPoints()<list[j].getDiscoveryPoints()){
+                mindex=j;
+            }
+        }
+        placeHolder=list[i];
+        list[i]=list[mindex];
+        list[mindex]=placeHolder;
+        i++;
+    }
+    cout<< "    name:       exdiscoveryPoints"<<endl;
     cout<< "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"<<endl;
-    for(int i = 0; i < size; ++i){
-        cout<<i+1<<". "<<list[i].getName()<< ":      "<< list[i].getExperience()<< ",          "<< list[i].getAccuracy() << ",           "<< list[i].getEfficiency() << ",           "<< list[i].getInsight() << ",           "<< list[i].getDiscoveryPoints() <<endl;
+    
+    for(int i = 0;i<size;i++){
+        cout<<i+1<<".   "<<list[i].getPlayerName()<< "       "<< list[i].getDiscoveryPoints() <<endl<<endl;
     }
 }

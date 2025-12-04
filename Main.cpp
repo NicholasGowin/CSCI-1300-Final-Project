@@ -1,50 +1,42 @@
 #include "Board.h"
-#include "intro.cpp"
+
+// forward declaration; intro() is implemented in intro.cpp
+void intro();
+int rollDie();
+int playTurn();
 
 using namespace std;
 
-int rollDie(){
-    return (rand() % 6) + 1; // Returns a number between 1 and 6
-}
 
-int playTurn(){
-    int roll;
-    string guess;
-    Riddle riddle;
-    riddle.setQA("riddles.txt");
-    cout << riddle.getAnswer()<<endl; //remove this!
-    cout<< riddle.getQuestion()<<endl;
-    cin>>guess;
-    if(guess == riddle.getAnswer()){
-        cout<< "That's Correct! Now you can roll!"<<endl;
-        roll = rollDie();
-        cout<< "you rolled a "<< roll <<"!"<<endl;
 
-    }else{
-        cout<< riddle.getAnswer()<< guess <<endl;
-        cout<< "That is unfortunately worng"<<endl;
-        roll = -1;
-        
-    }
-    return roll;
-}
+
 
 
 int main(){
+    
     intro();
     Character player1;
+    cout<<"Player one please type in your name: "<<endl;
+    player1.setPlayerName();
     player1.displayAllCharacters("characters.txt",-1);
     int choice1;
     cin>> choice1;
-    int prevous = player1.setCharacterInfo("characters.txt", choice1-1,0, 100);
-    cout<< endl<< "Player 2, choose your character by entering the corresponding number:"<< endl;
+    int previous = player1.setCharacterInfo("characters.txt", choice1-1,0, 100); //(100) number outside of bounds of character
+    cout<<"Player two please type in your name: "<<endl;
+    
+    
     Character player2;
-    player2.displayAllCharacters("characters.txt", choice1-1);
+    player2.setPlayerName();
+    cout<< endl<< "Player 2, choose your character by entering the corresponding number:"<< endl;
+    player2.displayAllCharacters("characters.txt", previous);
     int choice2;
     cin>> choice2;
-    cout<< "This is the value of prevous"<<prevous<<endl;
-    player2.setCharacterInfo("characters.txt",choice2-1,1,prevous);
+    player2.setCharacterInfo("characters.txt",choice2-1,1,previous);
     cout<< endl<< "Great choices! "<< endl<< endl;
+    cout<< "Player 1! ";
+    player1.setAdvisor("advisor.txt");
+    cout<< "Player 2! ";
+    player2.setAdvisor("advisor.txt");
     
     
     int path1;
@@ -62,7 +54,9 @@ int main(){
     cin>>path2;
     Board gameBoard;// map player choices to lanes: 1 -> lane 0 (top), 2 -> lane 1 (bottom)
     gameBoard.assignPlayerToLane(0, path1-1);
+    player1.setPath(path1-1);
     gameBoard.assignPlayerToLane(1, path2-1);
+    player2.setPath(path2-1);
     gameBoard.displayBoard();
     
 
@@ -95,7 +89,12 @@ int main(){
         color = gameBoard.getTileColor(0);
 
         //special tile colors
-        while(color!= 'G'&& color!= 'O' && color!= 'Y'&& color!= 'P'&& color!= 'U'){ //when tile isn't green and the game's not over see if there is any action to be taken.
+        while(color!= 'G'&& color!= 'Y'&& color!= 'P'){ //when tile isn't green and the game's not over see if there is any action to be taken.
+            if(color == 'O'){
+                player1.addDiscoveryPoints(1,500);
+                break;
+            }
+            
             while(color == 'B'){ //color blue
                 gameBoard.setTileColorGreen(0);
                 string placeHolder;
@@ -134,7 +133,6 @@ int main(){
                 string guess;
                 Riddle riddle;
                 riddle.setQA("riddles.txt");
-                cout << riddle.getAnswer()<<endl;
                 cout<< riddle.getQuestion()<<endl;
                 cin>>guess;
                 if(guess == riddle.getAnswer()){
@@ -151,8 +149,25 @@ int main(){
                     gameBoard.movePlayerBack(0);
                     gameBoard.displayBoard();
                 }
+                
                 color = gameBoard.getTileColor(0);
                 
+            }
+            while(color == 'U'){ // color purple
+                int pointsAdded;
+                gameBoard.setTileColorGreen(0);
+                gameBoard.displayBoard();
+                RandomEvents randomEvent(player1.getPath(), player1.getAdvisor());
+                randomEvent.setRandomIndex();
+                pointsAdded = randomEvent.updateDiscoveryPoints("random_events.txt");
+                cout<< randomEvent.getEvent()<<endl;
+                player1.addDiscoveryPoints(1, pointsAdded);
+                if(pointsAdded <= 0){
+                    randomEvent.redefineValues(player2.getAdvisor(),player2.getPath());
+                    pointsAdded = randomEvent.updateDiscoveryPoints("random_events.txt");
+                    player2.addDiscoveryPoints(2, pointsAdded);
+                }
+                color = gameBoard.getTileColor(0);
             }
         
         }
@@ -179,7 +194,11 @@ int main(){
         color = gameBoard.getTileColor(1);
 
         //special tile colors
-        while(color!= 'G'&& color!= 'O' && color!= 'Y'&& color!= 'P'&& color!= 'U'){ //when tile isn't green and the game's not over see if there is any action to be taken.
+        while(color!= 'G'&& color!= 'Y'&& color!= 'P'){ //when tile isn't green and the game's not over see if there is any action to be taken.
+            if(color == 'O'){
+                player2.addDiscoveryPoints(2,500);
+                break;
+            }
             while(color == 'B'){ //color blue
                 gameBoard.setTileColorGreen(1);
                 string placeHolder;
@@ -220,7 +239,6 @@ int main(){
                 string guess;
                 Riddle riddle;
                 riddle.setQA("riddles.txt");
-                cout << riddle.getAnswer()<<endl;
                 cout<< riddle.getQuestion()<<endl;
                 cin>>guess;
                 if(guess == riddle.getAnswer()){
@@ -238,33 +256,51 @@ int main(){
                     gameBoard.displayBoard();
                 }
                 color = gameBoard.getTileColor(1);
-                
+            }
+            while(color == 'U'){ // color purple
+                int pointsAdded;
+                gameBoard.setTileColorGreen(1);
+                gameBoard.displayBoard();
+                RandomEvents randomEvent(player2.getPath(), player2.getAdvisor());
+                randomEvent.setRandomIndex();
+                pointsAdded = randomEvent.updateDiscoveryPoints("random_events.txt");
+                cout<< randomEvent.getEvent()<<endl;
+                player2.addDiscoveryPoints(2, pointsAdded);
+                if(pointsAdded <= 0){
+                    randomEvent.redefineValues(player1.getAdvisor(),player1.getPath());
+                    pointsAdded = randomEvent.updateDiscoveryPoints("random_events.txt");
+                    player1.addDiscoveryPoints(1, pointsAdded);
+                }
+                color = gameBoard.getTileColor(1);
             }
         
         }
         player2.tallyUpPoints(ansCorrect, roll, luck);
     }
+    // finalize players' points before creating the array used for sorting
+    player1.getFinalPoints();
+    player2.getFinalPoints();
     Character list[2];
     list[0] = player1;
     list[1] = player2;
-    player1.getFinalPoints();
-    player2.getFinalPoints();
     cout<< player1.getDiscoveryPoints()<<endl;
     cout<< player2.getDiscoveryPoints()<<endl;
-    if(player1.getFinalPoints()>player2.getFinalPoints()){
+    if(player1.getDiscoveryPoints()>player2.getDiscoveryPoints()){
         cout<< "Player 1 wins!!"<<endl;
         player1.selectionSort(list,2);
-        cout<< player1.getName()<< "- \"Thanks for the Win Player 1!\""<<endl;
-    }else if(player2.getFinalPoints()>player1.getFinalPoints()){
+        cout<< player1.getName()<< "- \"Thanks for the Win "<< player1.getPlayerName() <<"!\""<<endl;
+    }else if(player2.getDiscoveryPoints()>player1.getDiscoveryPoints()){
         cout<< "Player 2 wins!!"<<endl;
         player1.selectionSort(list,2);
-        cout<< player1.getName()<< "- \"Thanks for the Win Player 2!\""<<endl;
+        cout<< player2.getName()<< "- \"Thanks for the Win "<< player2.getPlayerName() <<"!\""<<endl;
     }else{
         cout<< "It's a tie!"<<endl;
         player1.selectionSort(list,2);
         cout<< player1.getName()<< ", "<< player2.getName() << "- \"I'll get you next time!\""<<endl;
     }
     cout<< "GAME OVER!";
+    player1.addPlayerToFile();
+    player2.addPlayerToFile();
     
     
 

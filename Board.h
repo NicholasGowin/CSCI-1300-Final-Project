@@ -7,6 +7,7 @@
 #include "Riddle.h"
 #include "Characters.h"
 #include "UsefulFunctions.h"
+#include "random_events.h"
 
 class Board {
     private:
