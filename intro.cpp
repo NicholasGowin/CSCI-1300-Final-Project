@@ -25,10 +25,10 @@ void intro(){
         cout<< "        -Brown Tiles: If you land on this tile you will be prompted with an aditional question." <<endl<<"          If you get this one right, you get to move forward one extra tile,"<<endl<<"          but if you get it worng you have to move back 3 spaces!"<< endl;
         cout<< "        -Purple Tiles: You will get a random event that can apply to both players."<<endl
         <<"          If you have a corresponding advisor or path it could prevent you from losing points!"<<endl;
-        cout<< "7. Along they way you will lose/earn different points for your attributes which willl be added together "<<endl
+        cout<< "7. Along they way you will lose/earn different points for your attributes which will be added together "<<endl
         << "and give a certain number of discovery points based on the expirence of the charecter"<<endl;
-        cout<< "8. Any player who reaches the orange tile at the end ends the game and earns 100 additional points discovery points"<< endl;
-        cout<< "9. In the case of Player 1 reaching orange first Player 2 will get one opertunity to reach it and earn the 100 points as well"<<endl;
+        cout<< "8. Any player who reaches the orange tile at the end ends the game and earns 500 additional points discovery points"<< endl;
+        cout<< "9. In the case of Player 1 reaching orange first Player 2 will get one opertunity to reach it and earn the 500 points as well"<<endl;
         cout<< "10. Whoever ends with the most discovery points at the end wins!"<<endl;
     }else{
         cout<< "no worries, let's get started!"<<endl;
