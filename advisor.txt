@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 Dr. Aliquot – A master of the “wet lab”, assisting in avoiding contamination.
 Dr. Assembler – An expert who helps improve efficiency and streamlines pipelines.
 Dr. Pop-Gen – A genetics specialist with insight for identifying rare genetic variants.
