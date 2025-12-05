@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 #include "Board.h"
 
 // forward declaration; intro() is implemented in intro.cpp
