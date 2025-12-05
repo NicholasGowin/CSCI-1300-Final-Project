@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 #include "Characters.h"
 #include "UsefulFunctions.h"
 #include <iostream>
