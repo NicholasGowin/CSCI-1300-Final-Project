@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 #include "UsefulFunctions.h"
 
 void split(const string &line, vector<string> &words, char symbol){
