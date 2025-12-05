@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 #include "DNA.h"
 #include "UsefulFunctions.h"
 
