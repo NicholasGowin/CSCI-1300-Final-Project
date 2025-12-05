@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 #include "Riddle.h"
 #include "UsefulFunctions.h"
 
