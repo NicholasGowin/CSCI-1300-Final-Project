@@ -1,3 +1,4 @@
+//Meera Bipin and Nicholas Gowin
 // Source file calling the header file
 #include "Board.h"
 // Recall we use this preprocessor directive for rand() and srand()
