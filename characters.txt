@@ -1,5 +1,7 @@
+//Meera Bipin and Nicholas Gowin
 Dr.Leo:     |5|500|400|900|20000
 Dr.Helix:   |7|900|100|250|20000
 Dr.Panthera:|8|400|300|100|20000
 Dr.Adenine: |6|600|500|420|20000
+
 Dr.K-mer:   |9|300|200|160|20000
